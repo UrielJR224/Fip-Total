@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIPE TOTAL | Consulta Completa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-principal: #0066b3;
+            --verde-destaque: #00C853;
+            --azul-escuro: #003466;
+            --cinza-claro: #f5f6f8;
+            --branco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cinza-claro);
+            color: var(--azul-escuro);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin: -10px -10px 1rem;
+            background: var(--azul-principal);
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            color: var(--branco);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            margin: 0 auto 1rem;
+            max-width: 280px;
+        }
+
+        .veiculos-container {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .veiculo-icone {
+            font-size: 1rem;
+            color: var(--branco);
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 6px;
+        }
+
+        .servicos {
+            margin: 1.5rem 0;
+        }
+
+        .grid-servicos {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            padding: 0 5px;
+        }
+
+        .grid-link {
+            text-decoration: none;
+            color: var(--azul-escuro);
+        }
+
+        .servico-card {
+            background: var(--branco);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .servico-icon {
+            font-size: 1.4rem;
+            color: var(--azul-principal);
+            margin-bottom: 0.5rem;
+        }
+
+        .servico-card h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .servico-card p {
+            color: #64748b;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-gratis {
+            background: var(--verde-destaque);
+            color: var(--branco);
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+
+        @media (min-width: 481px) {
+            .grid-servicos {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .servico-card {
+                padding: 1.2rem;
+                min-height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <section class="hero">
+            <h1>FIPE TOTAL</h1>
+            <p>Soluções veiculares completas</p>
+            <div class="veiculos-container">
+                <div class="veiculo-icone">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="veiculo-icone">
+                    <i class="fas fa-motorcycle"></i>
+                </div>
+                <div class="veiculo-icone">
+                    <i class="fas fa-truck"></i>
+                </div>
+            </div>
+        </section>
+
+        <section class="servicos">
+            <div class="grid-servicos">
+                <a href="consulta.html" class="grid-link">
+                    <div class="servico-card">
+                        <i class="fas fa-car servico-icon"></i>
+                        <h3>Consulta FIPE</h3>
+                        <p>Valor de mercado atual</p>
+                        <div class="badge-gratis">GRÁTIS</div>
+                    </div>
+                </a>
+
+                <a href="#" class="grid-link">
+                    <div class="servico-card">
+                        <i class="fas fa-search servico-icon"></i>
+                        <h3>Verificação</h3>
+                        <p>Histórico completo</p>
+                    </div>
+                </a>
+
+                <a href="#" class="grid-link">
+                    <div class="servico-card">
+                        <i class="fas fa-id-card servico-icon"></i>
+                        <h3>Proprietário</h3>
+                        <p>Consulta titularidade</p>
+                    </div>
+                </a>
+
+                <a href="#" class="grid-link">
+                    <div class="servico-card">
+                        <i class="fas fa-file-alt servico-icon"></i>
+                        <h3>CRLV Digital</h3>
+                        <p>Emissão documentação</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta FIPE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --azul-principal: #0066b3;
+            --verde-destaque: #00C853;
+            --azul-escuro: #003466;
+            --cinza-claro: #f5f6f8;
+            --branco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--cinza-claro);
+            color: var(--azul-escuro);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin: -10px -10px 1rem;
+            background: var(--azul-principal);
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            color: var(--branco);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin: 0 auto 1rem;
+            max-width: 280px;
+        }
+
+        .form-consulta {
+            background: var(--branco);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .form-consulta label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-consulta input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-consulta button {
+            background: var(--verde-destaque);
+            color: var(--branco);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .form-consulta button:hover {
+            background: #00b347;
+        }
+
+        .resultado {
+            margin-top: 2rem;
+            background: var(--branco);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            text-align: left;
+        }
+
+        .resultado h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            color: var(--azul-principal);
+            margin-bottom: 1rem;
+        }
+
+        .resultado p {
+            font-size: 1rem;
+            color: var(--azul-escuro);
+            margin-bottom: 0.5rem;
+        }
+
+        .voltar-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--azul-principal);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .voltar-link:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            color: var(--azul-principal);
+            padding: 1rem;
+        }
+
+        .error-box {
+            background: #ffebee;
+            color: #d32f2f;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ffcdd2;
+            margin-top: 1rem;
+        }
+
+        .dado-veiculo {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .dado-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dado-label {
+            color: var(--azul-escuro);
+            font-weight: 600;
+        }
+
+        .grupo-dados {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .grupo-dados h3 {
+            color: var(--azul-principal);
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--cinza-claro);
+            padding-bottom: 0.5rem;
+        }
+
+        .status-consulta {
+            background: var(--verde-destaque);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+
+        .tempo-resposta {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--azul-escuro);
+            margin-top: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .tempo-resposta i {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section class="hero">
+            <h1>Consulta FIPE</h1>
+            <p>Insira a placa do veículo para consultar o valor</p>
+        </section>
+
+        <section class="form-consulta">
+            <label for="placa">Placa do veículo:</label>
+            <input type="text" id="placa" placeholder="Ex: MIH5B55" maxlength="7">
+            <button id="consultar">Consultar</button>
+        </section>
+
+        <div class="resultado" id="resultado"></div>
+        <a href="index.html" class="voltar-link">Voltar</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const consultarBtn = document.getElementById('consultar');
+            const placaInput = document.getElementById('placa');
+            const resultadoDiv = document.getElementById('resultado');
+
+            // Máscara para a placa (mantido igual)
+            placaInput.addEventListener('input', (e) => {
+                let value = e.target.value.toUpperCase();
+                value = value.replace(/[^A-Z0-9]/g, '');
+
+                if (value.length > 3) {
+                    value = value.slice(0, 3) + value.slice(3).replace(/(\d{1})(\w{3})/, '$1$2');
+                }
+                e.target.value = value;
+            });
+
+            consultarBtn.addEventListener('click', async () => {
+                const placa = placaInput.value.trim().toUpperCase();
+
+                if (!/^[A-Z]{3}\d{1}[A-Z0-9]{3}$/.test(placa)) {
+                    resultadoDiv.innerHTML = `
+                        <div class="error-box">
+                            ⚠️ Formato de placa inválido!<br>
+                            <small>Use o padrão Mercosul (ABC1D23) ou antigo (ABC1234)</small>
+                        </div>
+                    `;
+                    return;
+                }
+
+                try {
+                    resultadoDiv.innerHTML = `
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i> Consultando...
+                        </div>
+                    `;
+
+                    const response = await fetch(`http://localhost:3000/api/placafipe/${placa}`);
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || `Erro HTTP: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+
+                    if (!data || Object.keys(data).length === 0) {
+                        throw new Error('Nenhum dado retornado pela API');
+                    }
+
+                    // Novo template com todos os dados organizados
+                    resultadoDiv.innerHTML = `
+                        <div class="dado-veiculo">
+                            <h2><i class="fas fa-car-side"></i> Resultado da Consulta</h2>
+                            <div class="status-consulta">
+                                ${data.codigo === 1 ? '✅' : '⚠️'} ${data.msg}
+                            </div>
+        
+                            <div class="grupo-dados">
+                                <h3>Informações Principais</h3>
+                                ${buildResultItem('Placa', data.placa)}
+                                ${buildResultItem('Marca', data.informacoes_veiculo?.marca)}
+                                ${buildResultItem('Modelo', data.informacoes_veiculo?.modelo)}
+                                ${buildResultItem('Ano Fabricação', data.informacoes_veiculo?.ano)}
+                                ${buildResultItem('Ano Modelo', data.informacoes_veiculo?.ano_modelo)}
+                                ${buildResultItem('Cor', data.informacoes_veiculo?.cor)}
+                            </div>
+
+                             <!-- Seção FIPE -->
+                            <div class="grupo-dados destaque-fipe">
+                                <h3><i class="fas fa-coins"></i> Valor FIPE</h3>
+                                ${buildResultItem('Referência', obterMesReferencia(data.mes_referencia))}
+                                ${buildResultItem('Valor', formatarMoeda(data.valor_fipe))}
+                                ${buildResultItem('Código FIPE', data.codigo_fipe)}
+                            </div>
+        
+                            <div class="grupo-dados">
+                                <h3>Detalhes Técnicos</h3>
+                                ${buildResultItem('Chassi', data.informacoes_veiculo?.chashi)}
+                                ${buildResultItem('Motor', data.informacoes_veiculo?.motor)}
+                                ${buildResultItem('Cilindradas', data.informacoes_veiculo?.cilindradas + ' cc')}
+                                ${buildResultItem('Combustível', data.informacoes_veiculo?.combustivel)}
+                            </div>
+        
+                            <div class="grupo-dados">
+                                <h3>Localização e Categoria</h3>
+                                ${buildResultItem('Município/UF',
+                        `${data.informacoes_veiculo?.municipio || '-'}/${data.informacoes_veiculo?.uf || '-'}`)}
+                                ${buildResultItem('Segmento', data.informacoes_veiculo?.segmento)}
+                                ${buildResultItem('Subsegmento', data.informacoes_veiculo?.sub_segmento)}
+                            </div>
+        
+                            <div class="tempo-resposta">
+                                <i class="fas fa-stopwatch"></i> 
+                                Tempo de resposta: ${data.tempo} ${data.unidade_tempo}
+                            </div>
+                        </div>
+                    `;
+
+                } catch (error) {
+                    console.error('Erro na consulta:', error);
+                    resultadoDiv.innerHTML = `
+                        <div class="error-box">
+                            ⚠️ Falha na consulta!<br>
+                            <small>${error.message}</small>
+                        </div>
+                    `;
+                }
+            });
+
+            function buildResultItem(label, value, cssClass = '') {
+                if (!value || value === 'undefined') return '';
+                return `
+                    <div class="dado-item ${cssClass}">
+                        <span class="dado-label">${label}:</span>
+                        <span>${value}</span>
+                    </div>
+                `;
+            }
+        });
+
+        function formatarMoeda(valor) {
+            return valor ? 'R$ ' + parseFloat(valor).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }) : 'Não disponível';
+        }
+
+        function obterMesReferencia(codigo) {
+            const meses = {
+                '305': 'Janeiro/2024',
+                '306': 'Fevereiro/2024',
+                // Adicione outros códigos conforme necessário
+            };
+            return meses[codigo] || 'Não especificado';
+        }
+
+    </script>
+</body>
+
+</html>
